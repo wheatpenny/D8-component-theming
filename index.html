@@ -29,6 +29,12 @@
 					<p>Missteps, Learnings, and Success</p>
 				</section>
 				<section>
+					<blockquote cite="https://twitter.com/patio11/status/803825771349426176">
+						&ldquo;The world needs more people who are two days into learning something writing about the problems of people who are one day in.&rdquo;
+					</blockquote>
+					-- Patrick McKenzie <br />(https://twitter.com/patio11/status/803825771349426176)
+				</section>
+				<section>
 					<section>
 						<h2>Levi Sigworth</h2>
 					</section>
@@ -42,9 +48,22 @@
 					</section>
 					<section>
 						Approve the design in the browser, not with a Photoshop rendering
+						<aside class="notes">
+							But how? Build the Drupal site immediately and hope for the best?
+							No, but let's first tell a story.
+							Through a front end style guide! I chose to use
+							Atomic Design and Pattern Lab, but there are others.
+							Quick overview of a front end style guide + Atomic Design + Pattern Lab
+						</aside>
 					</section>
 					<section>
 						A front end style guide perfectly in sync with production
+						<aside class="notes">
+							Front end style guides can be completely independent of the CMS.
+							But I wanted one that was tightly integrated. Make a change in the style guide,
+							it shows up on the site. HTML, CSS, and JS all supplied by the
+							front end style guide.
+						</aside>
 					</section>
 					<section>
 						Publish the front end style guide publicly
@@ -58,7 +77,80 @@
 						Bundles of HTML, CSS, and JS that can be moved around the site and consistenly displayed
 					</section>
 					<section>
+						<h2>Code Widget</h2>
+					</section>
+					<section>
+						<h3>Final Generated HTML</h3>
+					</section>
+					<section>
+						<pre>
+							<code>
+&lt;figure class="paragraphs-code"&gt;
+	&lt;pre class="paragraphs-code__code"&gt;
+		&lt;code&gt;
+			drup()&lt;br /&gt;
+		&lt;/code&gt;
+	&lt;/pre&gt;
+	&lt;figcaption class="paragraphs-code__caption"&gt;
+		&lt;p&gt;An example startup script to get your Drupal 7
+		site ready for development.&lt;/p&gt;
+	&lt;/figcaption&gt;
+&lt;/figure&gt;
+							</code>
+						</pre>
+						<p>Drupal outputs this markup and content</p>
+					</section>
+					<section>
+						<h3>Final Generated CSS</h3>
+					</section>
+					<section>
+						<pre>
+							<code>
+.paragraphs-code {
+  clear: both;
+  padding: 0 0 20px 20px;
+  border-left: #f7951d 2px solid;
+  margin-left: 0;
+}
+
+@media (min-width: 1250px) {
+  .paragraphs-code {
+    padding-left: 40px;
+    margin-left: -40px;
+  }
+}
+
+.paragraphs-code__code {
+  background-color: #f2f2f2;
+  overflow: scroll;
+}
+
+.paragraphs-code__caption {
+  color: #7a7a7a;
+  border-bottom: 1px solid #f2f2f2;
+  padding-bottom: 5px;
+}
+
+.paragraphs-code__caption p {
+	margin-bottom: 0;
+}
+						</code>
+					</pre>
+						<p>Pattern Lab generates this CSS, and the Drupal theme imports.
+							This CSS file.</p>
+					</section>
+					<section>
+						<h3>No JS for this widget</h3>
+					</section>
+					<section>
 						Something that is a lot easier to do with Drupal 8! <br /><em>(compared to Drupal 7)</em>
+						<aside class="notes">
+							Remember before we said front end style guides can be independent or in sync?
+							Because Pattern Lab and Drupal 8 both use Twig to generate markup, we can
+							use Pattern Lab to define Twig templates for a Drupal theme! In D7, you can
+							(and should!) use a front end style guide, but you'll need to reimplement
+							the markup in PHPTemplate.
+						</aside>
 					</section>
 				</section>
 			</div>
