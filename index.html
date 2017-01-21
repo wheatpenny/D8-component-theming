@@ -114,17 +114,19 @@
 					<section>
 						<pre>
 							<code>
-&lt;figure class="paragraphs-code"&gt;
-	&lt;pre class="paragraphs-code__code"&gt;
-		&lt;code&gt;
-			drup()&lt;br /&gt;
-		&lt;/code&gt;
-	&lt;/pre&gt;
-	&lt;figcaption class="paragraphs-code__caption"&gt;
-		&lt;p&gt;An example startup script to get your Drupal 7
-		site ready for development.&lt;/p&gt;
-	&lt;/figcaption&gt;
-&lt;/figure&gt;
+<figure class="paragraphs-code">
+  <pre class="paragraphs-code__code">
+    <code>
+      function THEME-NAME_preprocess_html(&amp;$variables) {  // replace THEME-NAME with your theme<br />
+  $appleIcon = array(&#039;#tag&#039; =&gt; &#039;link&#039;, &#039;#attributes&#039; =&gt; array(&#039;href&#039; =&gt; base_path().path_to_theme(). &#039;/images/apple-touch-icon.png&#039;, &#039;rel&#039; =&gt; &#039;apple-touch-icon&#039;, &#039;type&#039; =&gt; &#039;image/png&#039;),);<br />
+  drupal_add_html_head($appleIcon, &#039;apple-touch-icon&#039;);<br />
+}
+    </code>
+  </pre>
+  <figcaption class="paragraphs-code__caption">
+    <p>Putting it all together.</p>
+  </figcaption>
+</figure>
 							</code>
 						</pre>
 						<p>Drupal outputs this markup and content</p>
@@ -314,46 +316,6 @@ npm run new
 					<section>
 						<pre>
 							<code>
-{#
-/**
- * @file
- * Default theme implementation to display a paragraph.
- *
- * Available variables:
- * - paragraph: Full paragraph entity.
- *   - id: The paragraph ID.
- *   - bundle: The type of the paragraph, for example, "image" or "text".
- *   - authorid: The user ID of the paragraph author.
- *   - createdtime: Formatted creation date. Preprocess functions can
- *     reformat it by calling format_date() with the desired parameters on
- *     $variables['paragraph']->getCreatedTime().
- * - content: All paragraph items. Use {{ content }} to print them all,
- *   or print a subset such as {{ content.field_example }}. Use
- *   {{ content|without('field_example') }} to temporarily suppress the printing
- *   of a given child element.
- * - attributes: HTML attributes for the containing element.
- *   The attributes.class element may contain one or more of the following
- *   classes:
- *   - paragraphs: The current template type (also known as a "theming hook").
- *   - paragraphs--type-[type]: The current paragraphs type. For example, if the paragraph is an
- *     "Image" it would result in "paragraphs--type--image". Note that the machine
- *     name will often be in a short form of the human readable label.
- *   - paragraphs--view-mode--[view_mode]: The View Mode of the paragraph; for example, a
- *     preview would result in: "paragraphs--view-mode--preview", and
- *     default: "paragraphs--view-mode--default".
- * - view_mode: View mode; for example, "preview" or "full".
- * - logged_in: Flag for authenticated user status. Will be true when the
- *   current user is a logged-in member.
- * - is_admin: Flag for admin user status. Will be true when the current user
- *   is an administrator.
- *
- * @see template_preprocess_paragraph()
- *
- * @ingroup themeable
- */
-#}
-
-
 {% embed "@molecules/paragraphs-code.twig"
   with {
   "code": content.field_figure_code|field_value,
@@ -426,6 +388,30 @@ npm run new
 					<section>
 							<pre>
 								<code>
+<{{ element ?: "figure" }} class="paragraphs-image{% if styleModifier %} paragraphs-image--{{ styleModifier }}{% endif %}">
+  <div class="paragraphs-image__image">
+    {% block img %}
+      {% include "@atoms/_img.twig" %}
+    {% endblock %}
+
+    {% if byline %}
+      <div class="paragraphs-image__byline">
+      {% block byline %}
+        <p>Image courtesy <a class="link--quiet" href="{{ bylineurl }}"> {{ byline }}</a></p>
+      {% endblock %}
+      </div>
+    {% endif %}
+  </div>
+
+  {% if caption %}
+    <figcaption class="paragraphs-image__caption">
+    {% block caption %}
+        <p>{{ caption }}</p>
+    {% endblock %}
+    </figcaption>
+  {% endif %}
+
+</{{ element ?: "figure" }}>
 								</code>
 							</pre>
 							Twig markup
@@ -433,6 +419,116 @@ npm run new
 					<section>
 						<pre>
 							<code>
+.paragraphs-image {
+  clear: both;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: $spacing--l*2;
+  display: table;
+
+  // styleModifier: left
+  &--left {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+    @include breakpoint($bp--large) {
+      float: left;
+      margin: 0 $spacing--l $spacing--l 0;
+      max-width: 600px;
+    }
+    @include breakpoint($bp--xlarge) {
+      //margin: 0 $spacing--l $spacing--l -05%;
+      max-width: 700px;
+    }
+    @include breakpoint($bp--xxxlarge) {
+      margin: 0 $spacing--l $spacing--l -15% ;
+    }
+  }
+
+  // styleModifier: right
+  &--right {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+    @include breakpoint($bp--large) {
+      float: right;
+      margin: 0 0 $spacing--l $spacing--l;
+      max-width: 600px;
+    }
+    @include breakpoint($bp--xlarge) {
+      //margin: 0 -05% $spacing--l $spacing--l;
+      max-width: 700px;
+    }
+    @include breakpoint($bp--xxxlarge) {
+      margin: 0 -15% $spacing--l $spacing--l;
+    }
+  }
+
+  // styleModifier: hero
+  &--hero {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__image {
+    position: relative;
+    border-top: 2px solid $c-img-border;
+    float: left;
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+  &__byline {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    @include knockout;
+    p {
+      margin-bottom: 0;
+    }
+
+    // styleModifier: hero
+    .paragraphs-image--hero & {
+      @include breakpoint($bp--xxlarge) {
+        transform: rotate(90deg);
+        transform-origin: 100% 100%;
+      }
+    }
+
+    // styleModifier: left
+    .paragraphs-image--left & {
+      @include breakpoint($bp--xxlarge) {
+        left: inherit;
+        right: auto;
+        transform: rotate(270deg);
+        transform-origin: 0 100%;
+      }
+    }
+
+    // styleModifier: right
+    .paragraphs-image--right & {
+      @include breakpoint($bp--xxlarge) {
+        transform: rotate(90deg);
+        transform-origin: 100% 100%;
+      }
+    }
+
+
+  }
+  &__caption {
+    color: $c-byline-color;
+    border-bottom: 1px solid $c-byline-border;
+    padding-bottom: $spacing--sm;
+    clear: both;
+    display: table-caption;
+    caption-side: bottom;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+}
 							</code>
 						</pre>
 						SCSS file
@@ -440,6 +536,12 @@ npm run new
 					<section>
 						<pre>
 							<code>
+{
+  "img": "http://placehold.it/1000x400",
+  "byline": "Freddy Foto",
+  "bylineurl": "https://www.example.com",
+  "caption": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud "
+}
 							</code>
 						</pre>
 						JSON file
@@ -459,6 +561,22 @@ npm run new
 						<h4>Theme Function</h4>
 					</section>
 					<section>
+						<pre>
+							<code>
+/**
+* Implements hook_preprocess_HOOK() for paragraph--paragraphs-image.html.twig.
+*/
+function patternlab_preprocess_paragraph__paragraphs_image(&$variables) {
+ $paragraph = $variables['paragraph'];
+ // Get the value of the image style and add it as a class on the image field.
+ $display_image = $paragraph->get('field_figure_position')->value;
+ $variables['display_image'] = $display_image;
+ }
+							</code>
+						</pre>
+						Theme function: place in themename.theme
+					</section>
+					<section>
 						<h3>Step 5</h3>
 						Figure out template name in Drupal
 					</section>
@@ -469,6 +587,18 @@ npm run new
 					<section>
 						<pre>
 							<code>
+{% embed "@molecules/01-paragraphs-image.twig"
+  with {
+  "byline": content.field_figure_byline.0["#title"],
+  "bylineurl": content.field_figure_byline.0["#url"],
+  "caption": content.field_figure_caption|field_value,
+  "styleModifier": display_image
+  }
+ %}
+ {% block img %}
+  {{ content.field_figure_image|field_value }}
+ {% endblock %}
+{% endembed %}
 							</code>
 						</pre>
 						paragraph--paragraphs-image.html.twig
@@ -494,6 +624,23 @@ npm run new
 					<section>
 							<pre>
 								<code>
+<{{ element ?: "div" }} class="writing-card{% if styleModifier %} writing-card--{{ styleModifier }}{% endif %}">
+  <a href="{{ url }}">
+    <div class="writing-card__image">
+      {% block img %}
+        {% include "@atoms/_img.twig" %}
+      {% endblock %}
+    </div>
+    <div class="writing-card__caption">
+      {% if title %}<h3 class="writing-card__title">{{ title }}</h3>{% endif %}
+      {% if body %}
+      <div class="writing-card__body">
+          <p>{{ body }}</p>
+      </div>
+      {% endif %}
+    </div>
+  </a>
+</{{ element ?: "div" }}>
 								</code>
 							</pre>
 							Twig markup
@@ -501,6 +648,56 @@ npm run new
 					<section>
 						<pre>
 							<code>
+								.writing-card {
+  position: relative;
+
+  //styleModifier: hero
+  &--hero {
+    margin-bottom: $spacing--l*2;
+  }
+
+  &__image {
+    img {
+      border-top: 2px solid $c-img-border;
+    }
+  }
+
+  &__caption {
+    border-top: $spacing--l/4 solid $c-writing-card-caption-border;
+    border-bottom: $spacing--l/4 solid $c-writing-card-caption-border;
+
+    // styleModifier: hero
+    .writing-card--hero & {
+      border-top: $spacing--l/4 solid $c-writing-card--hero-caption-border;
+      border-bottom: $spacing--l/4 solid $c-writing-card--hero-caption-border;
+      position: relative;
+
+      @include breakpoint($bp--medium) {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
+    }
+  }
+
+  &__title {
+    @include knockout;
+    background-color: $c-writing-card-caption-bg;
+    font-weight: normal;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  &__body {
+    @include knockout;
+    background-color: $c-writing-card-caption-bg;
+    font-style: italic;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+}
 							</code>
 						</pre>
 						SCSS file
@@ -508,6 +705,11 @@ npm run new
 					<section>
 						<pre>
 							<code>
+{
+  "img": "http://placehold.it/650x250",
+  "url": "http://www.example.com",
+  "title": "The Cobbler's Children: Pattern Lab and being your own client"
+}
 							</code>
 						</pre>
 						JSON file
@@ -525,6 +727,14 @@ npm run new
 					</section>
 					<section>
 						<h4>View Modes!</h4>
+						<p>Structure > Display Modes > View Modes</p>
+						<p>Add View Modes for content.</p>
+					</section>
+					<section>
+						<h4>Enable View Modes on Content Type</h4>
+						<p>Configure for each content type:</p>
+						<p>Structure > [Content Type] > Manage Display</p>
+						<p>Enable under "Custom Display Settings."</p>
 					</section>
 					<section>
 						<h3>Step 5</h3>
@@ -532,11 +742,23 @@ npm run new
 					</section>
 					<section>
 						<h3>Step 6</h3>
-						Pull component Twig template into Drupal theme.
+						<p>Pull component Twig template into Drupal theme.</p>
+						<p>Each View Mode gets a Drupal template, but they all use the same component.</p>
 					</section>
 					<section>
 						<pre>
 							<code>
+{% embed "@molecules/01-writing-card.twig"
+  with {
+    "url": url,
+    "title": label,
+    "body": content.field_card_blurb|field_value
+  }
+ %}
+  {% block img %}
+   {{ content.field_card_image|field_value }}
+  {% endblock %}
+{% endembed %}
 							</code>
 						</pre>
 						node--writing--card.html.twig
@@ -544,6 +766,18 @@ npm run new
 					<section>
 						<pre>
 							<code>
+{% embed "@molecules/01-writing-card.twig"
+  with {
+    "url": url,
+    "title": label,
+    "body": content.field_card_blurb|field_value,
+    "styleModifier": "hero"
+  }
+ %}
+  {% block img %}
+   {{ content.field_card_image|field_value }}
+  {% endblock %}
+{% endembed %}
 							</code>
 						</pre>
 						node--writing--card-hero.html.twig
@@ -551,6 +785,17 @@ npm run new
 					<section>
 						<pre>
 							<code>
+{% embed "@molecules/01-writing-card.twig"
+  with {
+    "url": url,
+    "title": label,
+    "body": content.field_card_blurb|field_value
+  }
+ %}
+  {% block img %}
+   {{ content.field_card_image|field_value }}
+  {% endblock %}
+{% endembed %}
 							</code>
 						</pre>
 						node--writing--card-text-only.html.twig
@@ -589,12 +834,17 @@ npm run new
 						I themed view modes and did almost no Views theming, except for layout out the grid.
 						1:1 relationship between view modes and component variations.
 					</section>
-
-
 				</section>
 				<section>
 					<section>
 						<h2>Resources</h2>
+					</section>
+					<section>
+						<h3>Required Drupal Modules</h3>
+						<ul>
+							<li>Component Libraries: <a href="https://www.drupal.org/project/components">https://www.drupal.org/project/components</a>. Allows us to import Twig files from the library.</li>
+							<li>Twig Field Value: <a href="https://www.drupal.org/project/twig_field_value">https://www.drupal.org/project/twig_field_value</a>. Allows us to write content.field_figure_image|field_value without drilling into the array.
+						</ul>
 					</section>
 					<section>
 						<h3>Drupal 8 Component Theming Initiative</h3>
