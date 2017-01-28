@@ -121,14 +121,11 @@
 <figure class="paragraphs-code">
   <pre class="paragraphs-code__code">
     <code>
-      function THEME-NAME_preprocess_html(&amp;$variables) {  // replace THEME-NAME with your theme<br />
-  $appleIcon = array(&#039;#tag&#039; =&gt; &#039;link&#039;, &#039;#attributes&#039; =&gt; array(&#039;href&#039; =&gt; base_path().path_to_theme(). &#039;/images/apple-touch-icon.png&#039;, &#039;rel&#039; =&gt; &#039;apple-touch-icon&#039;, &#039;type&#039; =&gt; &#039;image/png&#039;),);<br />
-  drupal_add_html_head($appleIcon, &#039;apple-touch-icon&#039;);<br />
-}
+			(CONTENT HERE)
     </code>
   </pre>
   <figcaption class="paragraphs-code__caption">
-    <p>Putting it all together.</p>
+    <p class="paragraphs-code__text">(CAPTION HERE)</p>
   </figcaption>
 </figure>
 							</code>
@@ -166,7 +163,7 @@
   padding-bottom: 5px;
 }
 
-.paragraphs-code__caption p {
+.paragraphs-code__text {
 	margin-bottom: 0;
 }
 						</code>
@@ -238,17 +235,15 @@ npm run new
 								<code>
 <{{ element ?: "figure" }} class="paragraphs-code">
   <pre class="paragraphs-code__code">
-		<code>
+    <code>
       {{ code }}
     </code>
   </pre>
-	{% endif %}
   {% if caption %}
     <figcaption class="paragraphs-code__caption">
-    {% block caption %}
-        <p>{{ caption }}</p>
-    {% endblock %}
+      <p class="paragraphs-code__text">{{ caption }}</p>
     </figcaption>
+  {% endif %}
 </{{ element ?: "figure" }}>
 								</code>
 							</pre>
@@ -277,11 +272,10 @@ npm run new
     color: $c-byline-color;
     border-bottom: 1px solid $c-byline-border;
     padding-bottom: $spacing--sm;
-    p {
-      margin-bottom: 0;
-    }
   }
-
+  &__text {
+    margin-bottom: 0;
+  }
 }
 							</code>
 						</pre>
@@ -384,6 +378,7 @@ npm run new
 							<pre>
 								<code>
 <{{ element ?: "figure" }} class="paragraphs-image{% if styleModifier %} paragraphs-image--{{ styleModifier }}{% endif %}">
+
   <div class="paragraphs-image__image">
     {% block img %}
       {% include "@atoms/_img.twig" %}
@@ -391,18 +386,14 @@ npm run new
 
     {% if byline %}
       <div class="paragraphs-image__byline">
-      {% block byline %}
         <p>Image courtesy <a class="link--quiet" href="{{ bylineurl }}"> {{ byline }}</a></p>
-      {% endblock %}
       </div>
     {% endif %}
   </div>
 
   {% if caption %}
     <figcaption class="paragraphs-image__caption">
-    {% block caption %}
-        <p>{{ caption }}</p>
-    {% endblock %}
+      <p class="paragraphs-image__text">{{ caption }}</p>
     </figcaption>
   {% endif %}
 
@@ -518,10 +509,10 @@ npm run new
     clear: both;
     display: table-caption;
     caption-side: bottom;
+  }
 
-    p {
-      margin-bottom: 0;
-    }
+  &__text {
+    margin-bottom: 0;
   }
 }
 							</code>
