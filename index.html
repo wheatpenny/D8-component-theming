@@ -402,7 +402,7 @@ npm run new
 
     {% if byline %}
       <div class="paragraphs-image__byline">
-        <p>Image courtesy <a class="link--quiet" href="{{ bylineurl }}"> {{ byline }}</a></p>
+        <p class="paragraphs-image__text">Image courtesy <a class="link--quiet" href="{{ bylineurl }}"> {{ byline }}</a></p>
       </div>
     {% endif %}
   </div>
@@ -474,7 +474,6 @@ npm run new
 
   &__image {
     position: relative;
-    border-top: 2px solid $c-img-border;
     float: left;
     img {
       display: block;
@@ -486,9 +485,6 @@ npm run new
     bottom: 0;
     right: 0;
     @include knockout;
-    p {
-      margin-bottom: 0;
-    }
 
     // styleModifier: hero
     .paragraphs-image--hero & {
@@ -637,7 +633,7 @@ function patternlab_preprocess_paragraph__paragraphs_image(&$variables) {
       {% if title %}<h3 class="writing-card__title">{{ title }}</h3>{% endif %}
       {% if body %}
       <div class="writing-card__body">
-          <p>{{ body }}</p>
+          <p class="writing-card__text">{{ body }}</p>
       </div>
       {% endif %}
     </div>
@@ -656,12 +652,6 @@ function patternlab_preprocess_paragraph__paragraphs_image(&$variables) {
   //styleModifier: hero
   &--hero {
     margin-bottom: $spacing--l*2;
-  }
-
-  &__image {
-    img {
-      border-top: 2px solid $c-img-border;
-    }
   }
 
   &__caption {
@@ -694,10 +684,9 @@ function patternlab_preprocess_paragraph__paragraphs_image(&$variables) {
     @include knockout;
     background-color: $c-writing-card-caption-bg;
     font-style: italic;
-
-    p {
-      margin-bottom: 0;
-    }
+  }
+  &__text {
+    margin-bottom: 0;
   }
 }
 							</code>
