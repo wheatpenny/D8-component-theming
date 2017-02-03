@@ -29,17 +29,21 @@
 					<p>Missteps, Learnings, and Success</p>
 				</section>
 				<section>
+					<p>Slides: <a href="https://wheatpenny.github.io/D8-component-theming/">https://wheatpenny.github.io/D8-component-theming/</a></p>
+					<p>Download theme: <a href="./componenttheme.zip">componenttheme.zip</a></p>
+				</section>
+				<section>
 					<blockquote cite="https://twitter.com/patio11/status/803825771349426176">
 						&ldquo;The world needs more people who are two days into learning something writing about the problems of people who are one day in.&rdquo;
 					</blockquote>
 					-- Patrick McKenzie <br />(https://twitter.com/patio11/status/803825771349426176)
 				</section>
 				<section>
-					Slides: <a href="https://wheatpenny.github.io/D8-component-theming/">https://wheatpenny.github.io/D8-component-theming/</a>
-				</section>
-				<section>
 					<section>
 						<h2>Levi Sigworth</h2>
+						<a class="fragment" href="https://xiah.io">xiah.io</a>
+						<a class="fragment" href="https://drupal.org/u/wheatpenny">drupal.org/u/wheatpenny</a>
+						<a class="fragment" href="https://twitter.com/levisigworth">@levisigworth</a>
 					</section>
 					<section>
 						Why listen to what I have to say?
@@ -58,11 +62,10 @@
 					<section>
 						Approve the design in the browser, not with a Photoshop rendering
 						<aside class="notes">
-							But how? Build the Drupal site immediately and hope for the best?
-							No, but let's first tell a story.
-							Through a front end style guide! I chose to use
-							Atomic Design and Pattern Lab, but there are others.
-							Quick overview of a front end style guide + Atomic Design + Pattern Lab
+							Photoshop is not fair to three groups:
+							1. Designers: Photoshop makes it too easy to gloss over edge cases.
+							2. Front end developers: After the design is handed off the front end devs have to deal with the edge cases. Will they do so in a way that the designer wants?
+							3. Clients: MOST IMPORTANTLY, clients pay us for websites, not pictures of websites. It is our DUTY to present in the best medium possible, so present a website, not a picture.
 						</aside>
 					</section>
 					<section>
@@ -88,24 +91,24 @@
 								</ul>
 							</li>
 						</ul>
-						<p>Higlighted folders and files of our Drupal 8 component-based theme</p>
+						<p>(Highlighted folders and files of our Drupal 8 component-based theme)</p>
 					</section>
 					<section>
 						Publish the front end style guide publicly
 					</section>
 					<section>
 						<h3>How?</h3>
-						We're going to reach these goals with component theming in Drupal 8.
+						<p>We're going to reach these goals with component theming in Drupal 8.</p>
 					</section>
 				</section>
 				<section>
 					<section>
 						<h2>Why component theming?</h2>
-						These goals are great, but why even bother? This is a lot of effort and something brand new to learn.
+						<p>These goals are great, but why even bother? This is a lot of effort and something brand new to learn.</p>
 					</section>
 					<section>
 						<p>Make changes to exactly the part of the site you want.</p>
-						<p>Those changes roll out in a predicatable manner.</p>
+						<p>Those changes roll out in a predictable manner.</p>
 					</section>
 					<section>
 						<blockquote>
@@ -118,7 +121,7 @@
 						<h2>What is component theming?</h2>
 					</section>
 					<section>
-						Bundles of HTML, CSS, and JS that can be moved around the site and remain CONSISTENT and PREDICTABLE
+						<p>Bundles of HTML, CSS, and JS that can be moved around the site and remain CONSISTENT and PREDICTABLE</p>
 					</section>
 					<section>
 						<h2>Example: Code Widget</h2>
@@ -216,7 +219,7 @@
 					</section>
 					<section>
 						<h3>Step 2</h3>
-						Create the component.
+						<p>Create the component in Pattern Lab.</p>
 					</section>
 					<section>
 						<ul>
@@ -310,25 +313,25 @@ npm run new
 					</section>
 					<section>
 						<h3>Step 3</h3>
-						Test your pattern in the browser!
+						<p>Test your pattern in the browser!</p>
 					</section>
 					<section>
 						<h3>Step 4</h3>
-						Build functionality in Drupal
+						<p>Build functionality in Drupal</p>
 					</section>
 					<section>
 						<h4>Paragraphs</h4>
 					</section>
 					<section>
 						<h3>Step 5</h3>
-						Figure out template name in Drupal
+						<p>Figure out template name in Drupal</p>
 					</section>
 					<section>
 						<a href="https://www.drupal.org/docs/8/theming/twig/debugging-twig-templates">https://www.drupal.org/docs/8/theming/twig/debugging-twig-templates</a>
 					</section>
 					<section>
 						<h3>Step 6</h3>
-						Pull component Twig template into Drupal theme.
+						<p>Pull component Twig template into Drupal theme.</p>
 					</section>
 					<section>
 						<pre>
@@ -384,11 +387,11 @@ npm run new
 					</section>
 					<section>
 						<h3>Step 1</h3>
-						<p>Understand that there is a need for a component.</p>
+						<p>Understand that there is a need for a component. (system thinking)</p>
 					</section>
 					<section>
 						<h3>Step 2</h3>
-						Create the component.
+						<p>Create the component in Pattern Lab.</p>
 					</section>
 					<section>
 							<pre>
@@ -613,11 +616,11 @@ function patternlab_preprocess_paragraph__paragraphs_image(&$variables) {
 					</section>
 					<section>
 						<h3>Step 1</h3>
-						<p>Understand that there is a need for a component.</p>
+						<p>Understand that there is a need for a component. (system thinking)</p>
 					</section>
 					<section>
 						<h3>Step 2</h3>
-						Create the component.
+						<p>Create the component in Pattern Lab.</p>
 					</section>
 					<section>
 							<pre>
@@ -707,11 +710,11 @@ function patternlab_preprocess_paragraph__paragraphs_image(&$variables) {
 					</section>
 					<section>
 						<h3>Step 3</h3>
-						Test your pattern in the browser!
+						<p>Test your pattern in the browser!</p>
 					</section>
 					<section>
 						<h3>Step 4</h3>
-						Build functionality in Drupal
+						<p>Build functionality in Drupal</p>
 					</section>
 					<section>
 						<h4>Views</h4>
@@ -729,7 +732,7 @@ function patternlab_preprocess_paragraph__paragraphs_image(&$variables) {
 					</section>
 					<section>
 						<h3>Step 5</h3>
-						Figure out template name in Drupal
+						<p>Figure out template name in Drupal</p>
 					</section>
 					<section>
 						<h3>Step 6</h3>
@@ -800,7 +803,7 @@ function patternlab_preprocess_paragraph__paragraphs_image(&$variables) {
 					</section>
 					<section>
 						<h2>Wrong Assumption #1</h2>
-						Drupal would be my test area for real content.
+						<p>Drupal would be my test area for real content.</p>
 					</section>
 					<section>
 						<h3>Next Time</h3>
@@ -810,19 +813,19 @@ function patternlab_preprocess_paragraph__paragraphs_image(&$variables) {
 					</section>
 					<section>
 						<h2>Wrong Assumption #2</h2>
-						I wanted to provide every template Drupal would use.
+						<p>I wanted to provide every template Drupal would use.</p>
 					</section>
 					<section>
 						<h3>Instead</h3>
-						I used blocks in Twig heavily to create replaceable sections.
+						<p>I used blocks in Twig heavily to create replaceable sections.</p>
 					</section>
 					<section>
 						<h2>Wrong Assumption #3</h2>
-						I thought that I would be theming a lot of views with fields.
+						<p>I thought that I would be theming a lot of views with fields.</p>
 					</section>
 					<section>
 						<h3>Instead</h3>
-						I themed view modes that were then used in views.
+						<p>I themed view modes that were then used in views.</p>
 					</section>
 				</section>
 				<section>
